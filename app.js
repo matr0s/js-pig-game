@@ -8,16 +8,16 @@ GAME RULES:
 - The first player to reach 100 points on GLOBAL score wins the game
 */
 
-var scores, roundScores, activePlayer, gamePlaying, dice, dice1, prevDice, winnerValue;
+var scores, roundScores, activePlayer, gamePlaying, prevDice, winnerValue;
 
 init();
 
 document.querySelector('.btn-roll').addEventListener('click', function() {
 if (gamePlaying) {
 // 1. Random number
-    prevDice = dice;
-    dice = Math.floor(Math.random() * 6)+1;
-    dice1 = Math.floor(Math.random() * 6)+1;
+   // prevDice = dice;
+    var dice = Math.floor(Math.random() * 6)+1;
+    var dice1 = Math.floor(Math.random() * 6)+1;
     // 2.  Display a result
 var diceDOM = document.querySelector('.dice');
     diceDOM.style.display = 'block';
@@ -30,7 +30,7 @@ var diceDOM1 = document.querySelector('.dice-1');
 // 3.  Update round score is dice is not 1
 if (dice == 1 || dice1 == 1) {
     nextPlayer();
-} else if(dice == 6 && prevDice == 6) {
+} else if(dice == 6 && dice1 == 6) {
     //clear all
     scores[activePlayer] = 0;
     document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
@@ -53,6 +53,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
     if (scores[activePlayer] >= winnerValue) {
     document.getElementById('name-' + activePlayer).textContent = 'WINNER!!!';
     document.querySelector('.dice').style.display = 'none';
+    document.querySelector('.dice-1').style.display = 'none';
     document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
     document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
     gamePlaying = false;

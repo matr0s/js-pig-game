@@ -119,6 +119,24 @@ button {
     transition: background-color 0.3s, color 0.3s;
 }
 
+.winnerValue {
+    top: 130px;
+    position: absolute;
+    width: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #555;
+    border: 1px;
+    border-style: solid;
+    font-family: Lato;
+    font-size: 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    /*font-weight: 300;
+    transition: background-color 0.3s, color 0.3s;*/
+}
+
+
 button:hover { font-weight: 600; }
 button:hover i { margin-right: 20px; }
 
@@ -140,6 +158,7 @@ i {
 .btn-new { top: 45px;}
 .btn-roll { top: 403px;}
 .btn-hold { top: 467px;}
+
 
 .dice {
     position: absolute;

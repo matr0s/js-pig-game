@@ -8,25 +8,30 @@ GAME RULES:
 - The first player to reach 100 points on GLOBAL score wins the game
 */
 
-var scores, roundScores, activePlayer, gamePlaying;
+var scores, roundScores, activePlayer, gamePlaying, dice, prevDice;
 
 init();
 
 document.querySelector('.btn-roll').addEventListener('click', function() {
 if (gamePlaying) {
 // 1. Random number
-var dice = Math.floor(Math.random() * 6)+1;
-// 2.  Display a result
+    prevDice = dice;
+    dice = Math.floor(Math.random() * 6)+1;
+    // 2.  Display a result
 var diceDOM = document.querySelector('.dice');
     diceDOM.style.display = 'block';
     diceDOM.src = 'dice-' + dice + '.png';
 // 3.  Update round score is dice is not 1
-if (dice !== 1) {
-    //add score
+if (dice == 1) {
+    nextPlayer();
+} else if(dice == 6 && prevDice == 6) {
+    //clear all
+    scores[activePlayer] = 0;
+    document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
+    nextPlayer();
+} else {
     roundScore += dice;
     document.querySelector('#current-' + activePlayer).textContent = roundScore;
-} else {
-    nextPlayer();
 }
 }
 });
@@ -53,6 +58,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 function nextPlayer () {
     // next player
     roundScore = 0;
+    dice = 0;
     document.querySelector('#current-' + activePlayer).textContent = roundScore;
     activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
     document.querySelector('.player-0-panel').classList.toggle('active');
@@ -68,6 +74,8 @@ function init() {
     roundScore = 0;
     activePlayer = 0;
     gamePlaying = true;
+    prevDice = 0;
+    dice = 0;
 
 document.querySelector('.dice').style.display = 'none';
 document.getElementById('score-0').textContent = '0';
@@ -82,8 +90,6 @@ document.querySelector('.player-0-panel').classList.remove('active');
 document.querySelector('.player-1-panel').classList.remove('active');
 document.querySelector('.player-0-panel').classList.add('active');
 };
-
-// var x = document.querySelector('#score-0').textContent;
 
 
 
